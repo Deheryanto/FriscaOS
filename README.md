@@ -151,8 +151,8 @@ brew install i386-elf-gcc   # or build from source
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/frisca-os.git
-cd frisca-os
+git clone https://github.com/Deheryanto/FriscaOS.git
+cd FriscaOS
 
 # Build the kernel
 make
@@ -488,8 +488,8 @@ SOFTWARE.
 ## 👤 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [@yourusername](https://github.com/Deheryanto)
+- Email: deheryantocorp@gmail.com
 
 ---
 

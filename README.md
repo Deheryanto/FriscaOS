@@ -70,14 +70,15 @@ frisca-os> _
 
 ```
 frisca-os/
+├──boot
+|  ├── boot.asm           # Bootloader & protected
+|
 ├── arch/
 │   └── i386/
-│       ├── boot.asm           # Bootloader & protected mode switch
 │       ├── idt.asm            # ISR/IRQ assembly stubs
 │       ├── idt.c              # IDT setup + PIC remap
 │       ├── idt.h
-│       ├── io.h               # inb / outb helpers
-│       └── gdt.asm            # GDT setup
+│       ├── io.h               # inb / outb helper
 │
 ├── drivers/
 │   ├── vga/
@@ -401,27 +402,7 @@ reboot
 - [ ] Page fault handler with diagnostics
 - [ ] `kernel_panic()` function
 - [ ] CPU exception handlers (0–31)
-- [ ] `print_hex` and `kprintf`
-- [ ] `mem` command in help
-- [ ] File deletion (`rm`)
-- [ ] `krealloc`, `kcalloc`, `kstrdup`
-
-### v0.3.0 (Future)
-- [ ] Multiboot header (real GRUB support)
-- [ ] E820 memory map parsing
-- [ ] ACPI shutdown
-- [ ] Higher-half kernel (0xC0000000+)
-- [ ] User mode (ring 3)
-- [ ] System calls (`int 0x80`)
-- [ ] Task scheduler
-- [ ] ATA / disk driver
-- [ ] Real on-disk filesystem
-
-### Long-term
-- [ ] SMP support (APIC)
-- [ ] Networking (e1000, TCP/IP stack)
-- [ ] GUI / windowing
-- [ ] POSIX-like API
+- [ ] 
 
 ---
 
@@ -487,8 +468,8 @@ SOFTWARE.
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/Deheryanto)
+**Deheryanto**
+- GitHub: [@Deheryanto](https://github.com/Deheryanto)
 - Email: deheryantocorp@gmail.com
 
 ---

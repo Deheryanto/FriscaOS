@@ -3,7 +3,7 @@
 
 ; CONSTANT 
 KERNEL_OFFSET  equ 0x1000
-KERNEL_SECTORS equ 30
+KERNEL_SECTORS equ 50
 
 start:
       cli                         ; Disable interrupts during segment setup

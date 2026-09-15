@@ -73,4 +73,7 @@ void sleep(uint32_t ms);
  *   - Driving periodic tasks (e.g., "run every 100 ticks") */
 uint32_t timer_get_ticks(void);
 
+
+int  timer_needs_reschedule(void);
+void timer_clear_reschedule(void);
 #endif  /* TIMER_H */

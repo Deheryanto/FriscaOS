@@ -4,8 +4,19 @@
 #include "memory/pmm.h"
 #include "memory/heap.h"
 #include "memory/paging.h"
+#include "task/task.h"
 #include "fs/vfs.h"
 #include "shell.h"
+
+volatile uint32_t bg_counter = 0;
+
+void background_task(void) {
+    while (1) {
+        bg_counter++;
+        sleep(500);
+    }
+}
+
 
 /* ─────────────────────────────────────────────────────────────────
  *  kernel_main — entry point of the kernel (C portion)
@@ -79,6 +90,10 @@ void kernel_main(void) {
      * here, the shell can create/list/read files. No files exist
      * yet — the user creates them with the `write` command. */
     vfs_init();
+
+    task_init();
+    create_task(background_task);
+
 
     /* ── 6. Shell ───────────────────────────────────────────
      * Print the welcome banner and the first `frisca-os> ` prompt.

@@ -1,5 +1,5 @@
 #include "string.h"
-
+#include "../drivers/vga/vga.h"   /* vga_write */
 
 /* ─────────────────────────────────────────────────────────────────
  *  strlen — count characters until the null terminator
@@ -154,4 +154,45 @@ void* memcpy(void* restrict dstptr, const void* restrict srcptr, size_t size) {
     for (size_t i = 0; i < size; i++)
         dst[i] = src[i];
     return dstptr;
+}
+
+
+
+void print_uint(uint32_t num) {
+    if (num == 0) {
+        vga_write("0");
+        return;
+    }
+
+    char buf[12];
+    int i = 10;
+    buf[11] = '\0';
+
+    while (num > 0) {
+        buf[i--] = '0' + (num % 10);
+        num /= 10;
+    }
+
+    vga_write(&buf[i + 1]);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ *  print_hex — print a 32-bit integer in hexadecimal
+ *
+ *  Writes exactly "0x" + 8 hex digits, lowercase.
+ *  Always pads with leading zeros for consistent alignment.
+ * ───────────────────────────────────────────────────────────────── */
+void print_hex(uint32_t value) {
+    static const char hex_chars[] = "0123456789abcdef";
+    char buf[11];
+    buf[0] = '0';
+    buf[1] = 'x';
+    buf[10] = '\0';
+
+    for (int i = 9; i >= 2; i--) {
+        buf[i] = hex_chars[value & 0xF];
+        value >>= 4;
+    }
+
+    vga_write(buf);
 }

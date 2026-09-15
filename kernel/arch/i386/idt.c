@@ -1,5 +1,6 @@
 #include "idt.h"
 #include "io.h"
+#include "isr.h"
 #include "../../drivers/vga/vga.h"
 #include "../../drivers/timer/timer.h"
 
@@ -11,6 +12,39 @@
 #define PIC1_DATA    0x21
 #define PIC2_COMMAND 0xA0
 #define PIC2_DATA    0xA1
+
+extern void isr0_handler(void);
+extern void isr1_handler(void);
+extern void isr2_handler(void);
+extern void isr3_handler(void);
+extern void isr4_handler(void);
+extern void isr5_handler(void);
+extern void isr6_handler(void);
+extern void isr7_handler(void);
+extern void isr8_handler(void);
+extern void isr9_handler(void);
+extern void isr10_handler(void);
+extern void isr11_handler(void);
+extern void isr12_handler(void);
+extern void isr13_handler(void);
+extern void isr14_handler(void);
+extern void isr15_handler(void);
+extern void isr16_handler(void);
+extern void isr17_handler(void);
+extern void isr18_handler(void);
+extern void isr19_handler(void);
+extern void isr20_handler(void);
+extern void isr21_handler(void);
+extern void isr22_handler(void);
+extern void isr23_handler(void);
+extern void isr24_handler(void);
+extern void isr25_handler(void);
+extern void isr26_handler(void);
+extern void isr27_handler(void);
+extern void isr28_handler(void);
+extern void isr29_handler(void);
+extern void isr30_handler(void);
+extern void isr31_handler(void);
 
 /* The Interrupt Descriptor Table (IDT): 256 entries, one per interrupt vector.
  * Each entry tells the CPU where to jump when an interrupt occurs. */
@@ -105,6 +139,45 @@ void idt_init(void) {
     /* Set up the IDT pointer: size = (256 entries × 8 bytes) - 1, base = &idt */
     idtp.limit = (sizeof(struct idt_entry) * 256) - 1;
     idtp.base  = (uint32_t)&idt;
+
+    /* Zero out IDT */
+    for (int i = 0; i < 256; i++) {
+        idt_set_gate(i, 0, 0, 0);
+    }
+
+      /* ── Register CPU exception handlers (0-31) ──────────────── */
+    idt_set_gate(0,  (uint32_t)isr0_handler,  0x08, 0x8E);
+    idt_set_gate(1,  (uint32_t)isr1_handler,  0x08, 0x8E);
+    idt_set_gate(2,  (uint32_t)isr2_handler,  0x08, 0x8E);
+    idt_set_gate(3,  (uint32_t)isr3_handler,  0x08, 0x8E);
+    idt_set_gate(4,  (uint32_t)isr4_handler,  0x08, 0x8E);
+    idt_set_gate(5,  (uint32_t)isr5_handler,  0x08, 0x8E);
+    idt_set_gate(6,  (uint32_t)isr6_handler,  0x08, 0x8E);
+    idt_set_gate(7,  (uint32_t)isr7_handler,  0x08, 0x8E);
+    idt_set_gate(8,  (uint32_t)isr8_handler,  0x08, 0x8E);
+    idt_set_gate(9,  (uint32_t)isr9_handler,  0x08, 0x8E);
+    idt_set_gate(10, (uint32_t)isr10_handler, 0x08, 0x8E);
+    idt_set_gate(11, (uint32_t)isr11_handler, 0x08, 0x8E);
+    idt_set_gate(12, (uint32_t)isr12_handler, 0x08, 0x8E);
+    idt_set_gate(13, (uint32_t)isr13_handler, 0x08, 0x8E);
+    idt_set_gate(14, (uint32_t)isr14_handler, 0x08, 0x8E);   /* Page fault */
+    idt_set_gate(15, (uint32_t)isr15_handler, 0x08, 0x8E);
+    idt_set_gate(16, (uint32_t)isr16_handler, 0x08, 0x8E);
+    idt_set_gate(17, (uint32_t)isr17_handler, 0x08, 0x8E);
+    idt_set_gate(18, (uint32_t)isr18_handler, 0x08, 0x8E);
+    idt_set_gate(19, (uint32_t)isr19_handler, 0x08, 0x8E);
+    idt_set_gate(20, (uint32_t)isr20_handler, 0x08, 0x8E);
+    idt_set_gate(21, (uint32_t)isr21_handler, 0x08, 0x8E);
+    idt_set_gate(22, (uint32_t)isr22_handler, 0x08, 0x8E);
+    idt_set_gate(23, (uint32_t)isr23_handler, 0x08, 0x8E);
+    idt_set_gate(24, (uint32_t)isr24_handler, 0x08, 0x8E);
+    idt_set_gate(25, (uint32_t)isr25_handler, 0x08, 0x8E);
+    idt_set_gate(26, (uint32_t)isr26_handler, 0x08, 0x8E);
+    idt_set_gate(27, (uint32_t)isr27_handler, 0x08, 0x8E);
+    idt_set_gate(28, (uint32_t)isr28_handler, 0x08, 0x8E);
+    idt_set_gate(29, (uint32_t)isr29_handler, 0x08, 0x8E);
+    idt_set_gate(30, (uint32_t)isr30_handler, 0x08, 0x8E);
+    idt_set_gate(31, (uint32_t)isr31_handler, 0x08, 0x8E);
 
     /* Remap the PIC so hardware IRQs land at vectors 0x20 and above */
     pic_remap();

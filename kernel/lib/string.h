@@ -81,4 +81,10 @@ void* memset(void* bufptr, int value, size_t size);
  * use strcpy for strings, memcpy for raw binary data. */
 void* memcpy(void* restrict dstptr, const void* restrict srcptr, size_t size);
 
+/* Print a 32-bit unsigned integer in hexadecimal, 0x-prefixed.
+ * Example: print_hex(0xDEADBEEF) → "0xdeadbeef" */
+void print_uint(uint32_t value);   /* print decimal */
+void print_hex(uint32_t value);    /* print hex, 0x-prefixed */
+
+
 #endif  /* STRING_H */
